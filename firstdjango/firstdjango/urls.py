@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from firstapp.views import FirstView, SecondView, ThirdView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("first/", FirstView.as_view()),
+    path("second/<param>/", SecondView.as_view()),
+    path("third/", ThirdView.as_view())
 ]
