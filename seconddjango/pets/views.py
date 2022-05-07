@@ -28,3 +28,38 @@ class DogView(View):
         Dog = Dog.objects.create(name=body["name"], age=body["age"])
         finalData = json.loads(serialize("json", [Dog]))
         return JsonResponse(finalData, safe=False)
+
+# class for "/Dog/<id>" routes
+class DogViewID(View):
+    ## Function to show 1 Dog
+    def get (self, request, id):
+        ## get the Dog
+        Dog = Dog.objects.get(id=id)
+        ## serilize then turn into dictionary
+        finalData = json.loads(serialize("json", [Dog]))
+        ## send json response
+        return JsonResponse(finalData, safe=False)
+
+    ## Function for updating Dog
+    def put (self, request, id):
+        ## get the body
+        body = GetBody(request)
+        ##update Dog
+        ## ** is like JS spread operator
+        Dog.objects.filter(id=id).update(**body)
+        ## query for Dog
+        Dog = Dog.objects.get(id=id)
+        ## serialize and make dict
+        finalData = json.loads(serialize("json", [Dog]))
+        ## return json data
+        return JsonResponse(finalData, safe=False)
+
+    def delete (self, request, id):
+        ## query the Dog
+        Dog = Dog.objects.get(id=id)
+        ## delete the Dog
+        Dog.delete()
+        ## serilize and dict updated Dog
+        finalData = json.loads(serialize("json", [Dog]))
+        ##send json response
+        return JsonResponse(finalData, safe=False)

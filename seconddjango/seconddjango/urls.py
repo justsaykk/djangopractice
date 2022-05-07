@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from seconddjango.pets.views import DogView
+from pets.views import DogView, DogViewID
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("dog/", DogView.as_view()),
-    path("dog/<id>", DogView.as_view())
+    path("dog/<id>", DogViewID.as_view())
 ]
